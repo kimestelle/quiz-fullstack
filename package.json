@@ -3,7 +3,25 @@
   "version": "1.0.0",
   "description": "Concentrate.ai Hiring Quiz",
   "private": true,
+  "type": "module",
   "scripts": {
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "next build client",
+    "build:server": "tsc -p server/tsconfig.json",
+    "dev": "node scripts/dev.mjs",
+    "dev:client": "next dev client",
+    "dev:server": "node --experimental-strip-types server/src/index.ts",
+    "start:client": "next start client",
+    "start:server": "node server/dist/index.js",
+    "lint": "eslint client server",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc -p client/tsconfig.json --noEmit && tsc -p server/tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "coverage": "vitest run --coverage",
+    "test:e2e": "playwright test --pass-with-no-tests",
+    "services:up": "docker compose up -d postgres redis",
+    "services:down": "docker compose down"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",
@@ -33,7 +51,7 @@
     "vitest": "^2.1.8"
   },
   "dependencies": {
-    "@fastify/cookie": "^12.0.0",
+    "@fastify/cookie": "^11.0.0",
     "@fastify/cors": "^10.0.1",
     "@radix-ui/react-avatar": "^1.1.2",
     "@radix-ui/react-dialog": "^1.1.4",
@@ -59,7 +77,7 @@
     "zod": "^3.24.1"
   },
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=22.0.0",
     "npm": ">=10.0.0"
   }
 }

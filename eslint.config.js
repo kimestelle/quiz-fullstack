@@ -1,0 +1,58 @@
+import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
+
+const compat = new FlatCompat({
+  baseDirectory: import.meta.dirname,
+  recommendedConfig: js.configs.recommended,
+});
+
+export default [
+  {
+    ignores: [
+      '**/.next/**',
+      '**/dist/**',
+      'client/next-env.d.ts',
+      'coverage/**',
+      'node_modules/**',
+      'playwright-report/**',
+      'test-results/**',
+    ],
+  },
+  ...compat.config({
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      ecmaFeatures: { jsx: true },
+    },
+    env: {
+      browser: true,
+      node: true,
+      es2022: true,
+    },
+    extends: [
+      'eslint:recommended',
+      'plugin:@typescript-eslint/recommended',
+      'plugin:react/recommended',
+      'plugin:react-hooks/recommended',
+      'next/core-web-vitals',
+      'prettier',
+    ],
+    plugins: ['@typescript-eslint', 'react', 'react-hooks'],
+    rules: {
+      '@next/next/no-html-link-for-pages': 'off',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
+    },
+    settings: {
+      react: { version: 'detect' },
+    },
+  }),
+];
