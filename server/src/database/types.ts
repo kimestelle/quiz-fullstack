@@ -3,8 +3,8 @@ import type { Generated, Insertable, Selectable, Updateable } from 'kysely';
 export interface Database {
   users: UserTable;
   classes: ClassTable;
-  teacher_groups: TeacherGroupTable;
-  teacher_group_members: TeacherGroupMemberTable;
+  teacherGroups: TeacherGroupTable;
+  teacherGroupMembers: TeacherGroupMemberTable;
   assignments: AssignmentTable;
   submissions: SubmissionTable;
 }

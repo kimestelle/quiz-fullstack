@@ -1,6 +1,11 @@
 import { createRequire } from 'node:module';
 
-import { Kysely, PostgresDialect, type PostgresPool } from 'kysely';
+import {
+  CamelCasePlugin, //converts TypeScript identifiers to PostgreSQL snake_case
+  Kysely,
+  PostgresDialect,
+  type PostgresPool,
+} from 'kysely';
 
 import type { Database } from './types.ts';
 
@@ -16,5 +21,6 @@ export function createDatabase(connectionString: string): Kysely<Database> {
     dialect: new PostgresDialect({
       pool: new Pool({ connectionString }),
     }),
+    plugins: [new CamelCasePlugin()],
   });
 }
